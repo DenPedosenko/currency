@@ -1,0 +1,12 @@
+###Create currencies
+
+POST http://localhost:8080/supported_currencies
+Content-Type: application/json
+
+{
+  "code":"EUR"
+}
+
+> {% client.test("Successful POST Request", function (){
+    client.assert(response.status === 201, "Response Status is not 201")
+}) %}
