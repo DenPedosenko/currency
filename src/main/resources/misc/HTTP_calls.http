@@ -1,12 +1,18 @@
 ###Create currencies
 
-POST http://localhost:8080/supported_currencies
+POST http://localhost:8080/currencies
 Content-Type: application/json
 
 {
-  "code":"EUR"
+  "code":"EUR",
+  "text" : "Євро"
 }
 
 > {% client.test("Successful POST Request", function (){
     client.assert(response.status === 201, "Response Status is not 201")
 }) %}
+
+
+###Create daily rates for interesting currencies
+POST http://localhost:8080/rates
+Content-Type: application/json
