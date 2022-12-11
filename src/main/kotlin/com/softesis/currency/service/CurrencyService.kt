@@ -1,21 +1,16 @@
 package com.softesis.currency.service
 
-import org.springframework.boot.web.client.RestTemplateBuilder
+import com.softesis.currency.model.Currency
+import com.softesis.currency.repository.CurrencyRepository
 import org.springframework.stereotype.Service
-
-import org.springframework.web.client.RestTemplate
 
 
 @Service
-class CurrencyService(restTemplateBuilder: RestTemplateBuilder) {
-    private val restTemplate: RestTemplate
-
-    init {
-        restTemplate = restTemplateBuilder.build()
+class CurrencyService( val db:CurrencyRepository) {
+    fun create(currency: Currency): Currency {
+        return db.save(currency)
     }
 
-    fun getCurrency(code:String):String? {
-            val url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode={1}&json"
-            return restTemplate.getForObject(url, String::class.java, code)
-        }
+    fun createAll(currencies: Iterable<Currency>) = db.saveAll(currencies)
+    fun findAll() : MutableSet<Currency> = db.findAll().toMutableSet()
 }

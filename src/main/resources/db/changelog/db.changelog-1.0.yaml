@@ -6,13 +6,58 @@ databaseChangeLog:
         - createTable:
             columns:
               - column:
-                  defaultValueComputed: "uuid_generate_v4()"
                   constraints:
                     primaryKey: true
                     primaryKeyName: currency_pkey
                   name: id
-                  type: uuid
+                  type: SERIAL
               - column:
                   name: code
                   type: VARCHAR(3)
-            tableName: supported_currencies
+              - column:
+                  name: text
+                  type: VARCHAR(50)
+            tableName: currency
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: rate_pk
+                  name: id
+                  type: SERIAL
+              - column:
+                  name: date
+                  type: DATE
+              - column:
+                  name: rate
+                  type: MONEY
+              - column:
+                  name: currency_id
+                  type: integer
+            tableName: rate
+        - addUniqueConstraint:
+            catalogName: cat
+            columnNames: code
+            constraintName: currency_code
+            deferrable: true
+            disabled: true
+            initiallyDeferred: true
+            schemaName: public
+            tableName: currency
+            validate: true
+        - addForeignKeyConstraint:
+              baseColumnNames: currency_id
+              baseTableCatalogName: cat
+              baseTableName: rate
+              baseTableSchemaName: public
+              constraintName: fk_currency_rate
+              deferrable: true
+              initiallyDeferred: true
+              onDelete: CASCADE
+              onUpdate: RESTRICT
+              referencedColumnNames: id
+              referencedTableCatalogName: cat
+              referencedTableName: currency
+              referencedTableSchemaName: public
+              validate: true
