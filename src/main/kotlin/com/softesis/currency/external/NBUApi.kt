@@ -6,13 +6,18 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 
 @Component
-class NBUApi(restTemplateBuilder: RestTemplateBuilder): ExternalResource<String, Array<ExchangeRateResponse>?> {
+class NBUApi(restTemplateBuilder: RestTemplateBuilder) {
     private val restTemplate: RestTemplate
     init {
         restTemplate = restTemplateBuilder.build()
     }
-    override fun getData(param: String): Array<ExchangeRateResponse>? {
+    fun getData(param: String): Array<ExchangeRateResponse>? {
         val url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode={1}&json"
         return restTemplate.getForObject(url, Array<ExchangeRateResponse>::class.java, param)
+    }
+
+    fun getDataOnDate(param: String, date: String): Array<ExchangeRateResponse>? {
+        val url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode={1}&date={2}&json"
+        return restTemplate.getForObject(url, Array<ExchangeRateResponse>::class.java, param, date)
     }
 }

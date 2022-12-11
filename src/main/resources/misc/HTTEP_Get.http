@@ -1,0 +1,36 @@
+### Get All Rates
+
+GET http://localhost:8080/rates
+Content-Type: application/json
+
+
+> {% client.test("Successful GET Request", function() {
+    client.assert(response.status === 200, "Response Status is not 200")
+}) %}
+
+### Get All By Date
+
+GET http://localhost:8080/rates/date=2022-12-12
+Content-Type: application/json
+
+> {% client.test("Successful GET Request", function() {
+    client.assert(response.status === 200, "Response Status is not 200")
+}) %}
+
+### Get All By Code
+
+GET http://localhost:8080/rates/code=EUR
+Content-Type: application/json
+
+> {% client.test("Successful GET Request", function() {
+    client.assert(response.status === 200, "Response Status is not 200")
+}) %}
+
+###Get All By Code And Date
+
+GET http://localhost:8080/rates/code=EUR/date=2022-12-12
+Content-Type: application/json
+
+> {% client.test("Successful GET Request", function() {
+    client.assert(response.status === 200, "Response Status is not 200")
+}) %}

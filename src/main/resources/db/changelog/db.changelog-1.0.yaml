@@ -36,6 +36,16 @@ databaseChangeLog:
                   name: currency_id
                   type: integer
             tableName: rate
+        - addUniqueConstraint:
+            catalogName: cat
+            columnNames: code
+            constraintName: currency_code
+            deferrable: true
+            disabled: true
+            initiallyDeferred: true
+            schemaName: public
+            tableName: currency
+            validate: true
         - addForeignKeyConstraint:
               baseColumnNames: currency_id
               baseTableCatalogName: cat

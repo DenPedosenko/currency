@@ -11,5 +11,6 @@ class CurrencyService( val db:CurrencyRepository) {
         return db.save(currency)
     }
 
-    fun findAll() : MutableIterable<Currency> = db.findAll()
+    fun createAll(currencies: Iterable<Currency>) = db.saveAll(currencies)
+    fun findAll() : MutableSet<Currency> = db.findAll().toMutableSet()
 }

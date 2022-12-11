@@ -16,8 +16,11 @@ class RateService(val api: NBUApi, val db: RateRepository) {
 
     fun getExchangeRates(code: String): Array<ExchangeRateResponse>? = api.getData(code)
 
-    fun getExchangeRatesAndCreate(currency: Currency) {
-        getExchangeRates(currency.code)?.let { rates ->
+    fun getExchangeRatesOnDate(code: String, date: String) = api.getDataOnDate(code, date)
+
+    fun getExchangeRatesAndCreate(currency: Currency, date: String?) {
+        (if (date == null) getExchangeRates(currency.code)
+        else getExchangeRatesOnDate(currency.code, date))?.let { rates ->
             rates.forEach { rate ->
                 create(
                     Rate(
@@ -30,4 +33,12 @@ class RateService(val api: NBUApi, val db: RateRepository) {
             }
         }
     }
+
+    fun findAll(): MutableIterable<Rate> = db.findAll()
+
+    fun findAllByDate(date: LocalDate): MutableIterable<Rate> = db.getAllByExchangeDate(date)
+
+    fun findAllByCurrency(code: String): MutableIterable<Rate> = db.getAllByCurrencyCode(code)
+    fun findAllByCurrencyAndDate(code: String, date: LocalDate): MutableIterable<Rate> =
+        db.getAllByCurrencyCodeAndAndExchangeDate(code, date)
 }
