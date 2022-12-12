@@ -36,9 +36,9 @@ class RateService(val api: NBUApi, val db: RateRepository) {
 
     fun findAll(): MutableIterable<Rate> = db.findAll()
 
-    fun findAllByDate(date: LocalDate): MutableIterable<Rate> = db.getAllByExchangeDate(date)
+    fun findAllByDate(date: LocalDate): List<Rate> = db.getAllByExchangeDate(date)
 
-    fun findAllByCurrency(code: String): MutableIterable<Rate> = db.getAllByCurrencyCode(code)
-    fun findAllByCurrencyAndDate(code: String, date: LocalDate): MutableIterable<Rate> =
+    fun findAllByCurrency(code: String): List<Rate> = db.getAllByCurrencyCode(code)
+    fun findAllByCurrencyAndDate(code: String, date: LocalDate): List<Rate> =
         db.getAllByCurrencyCodeAndAndExchangeDate(code, date)
 }
