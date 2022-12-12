@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class ScheduledService(val currencyService: CurrencyService, val rateService: RateService) {
-    @Scheduled(cron = "\${cron.interval}")
+    @Scheduled(fixedDelay = 10000)
     fun getRates(){
         val currencies = currencyService.findAll()
         currencies.forEach {

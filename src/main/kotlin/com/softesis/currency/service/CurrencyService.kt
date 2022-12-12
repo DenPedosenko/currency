@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class CurrencyService( val db:CurrencyRepository) {
-    fun create(currency: Currency): Currency {
-        return db.save(currency)
-    }
-
-    fun createAll(currencies: Iterable<Currency>) = db.saveAll(currencies)
-    fun findAll() : MutableSet<Currency> = db.findAll().toMutableSet()
+    fun create(currency: Currency): Currency = db.save(currency)
+    fun createAll(currencies: List<Currency>): List<Currency> = db.saveAll(currencies).toList()
+    fun findAll() : Set<Currency> = db.findAll().toSet()
 }

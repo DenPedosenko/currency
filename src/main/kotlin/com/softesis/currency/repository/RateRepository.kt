@@ -6,9 +6,9 @@ import java.time.LocalDate
 
 interface RateRepository : CrudRepository<Rate, String> {
 
-    fun getAllByExchangeDate(exchangeDate: LocalDate):MutableIterable<Rate>
-    fun getAllByCurrencyCode(code: String):MutableIterable<Rate>
-    fun getAllByCurrencyCodeAndAndExchangeDate(code: String, exchangeDate: LocalDate):MutableIterable<Rate>
+    fun getAllByExchangeDate(exchangeDate: LocalDate):List<Rate>
+    fun getAllByCurrencyCode(code: String):List<Rate>
+    fun getAllByCurrencyCodeAndAndExchangeDate(code: String, exchangeDate: LocalDate):List<Rate>
 
 
 }
